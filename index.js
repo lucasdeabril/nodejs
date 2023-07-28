@@ -1,18 +1,50 @@
-const http = require('http');
+// const http = require('http');
+// const PORT = 3000;
+// const express = require('express')
+// const routes = express.Router()
+
+// const server = http.createServer((req, res) => {
+//   res.statusCode = 200;
+//   res.setHeader('Content-Type', 'text/plain');
+//   res.end('Hello Wooooooorld!');
+//   return req.body;
+// });
+
+// routes.get('/teste', (req, res) => {
+//   const body = req.body
+//   if(!body)
+//     return res.status(400).end();
+  
+//   return res.json(body);
+// });
+
+// server.listen(PORT, () => {
+//   console.log(`Server running at http://localhost:${PORT}/`);
+// });
+
+const express = require('express');
+const app = express(); // Cria uma aplicação Express
+
 const PORT = 3000;
-const express = require('express')
-const routes = express.Router()
 
-const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('Hello World!');
+// Middleware para analisar dados JSON recebidos
+app.use(express.json());
+
+// Rota para o endpoint raiz
+app.get('/', (req, res) => {
+  res.status(200).send('Olá, mundo!');
 });
 
-routes.get('/', (req, res) => {
-  return res.json(db);
-  });
-
-server.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}/`);
+// Rota para o endpoint '/teste'
+app.post('/teste', (req, res) => {
+  const body = req.body;
+  if (!body) {
+    return res.status(400).end();
+  }
+  return res.json(body);
 });
+
+app.listen(PORT, () => {
+  console.log(`Servidor rodando em http://localhost:${PORT}/`);
+});
+
