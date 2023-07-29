@@ -32,7 +32,7 @@ app.use(express.json());
 
 // Rota para o endpoint raiz
 app.get('/', (req, res) => {
-  res.status(200).send('Olá, mundo!');
+  res.status(200).send('Se você está lendo isso, significa que estou melhorando no backend');
 });
 
 // Rota para o endpoint '/teste'
