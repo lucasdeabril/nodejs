@@ -1,32 +1,26 @@
-// const http = require('http');
-// const PORT = 3000;
-// const express = require('express')
-// const routes = express.Router()
-
-// const server = http.createServer((req, res) => {
-//   res.statusCode = 200;
-//   res.setHeader('Content-Type', 'text/plain');
-//   res.end('Hello Wooooooorld!');
-//   return req.body;
-// });
-
-// routes.get('/teste', (req, res) => {
-//   const body = req.body
-//   if(!body)
-//     return res.status(400).end();
-  
-//   return res.json(body);
-// });
-
-// server.listen(PORT, () => {
-//   console.log(`Server running at http://localhost:${PORT}/`);
-// });
-
+const dburl= new URL('mysql://k1wxu9ixz5z1aiamm54x:pscale_pw_lERcht9JXDClUKcXoIt9w4kDDUJTnm2zJIkCobL1MEC@aws.connect.psdb.cloud/primeiro_banco?ssl={"rejectUnauthorized":true}')
+const mysql = require('mysql2');
 const express = require('express');
 const app = express(); // Cria uma aplicação Express
-
+const url = require('url');
+const dbConfig = {
+  host: dburl.hostname,
+  user: dburl.username,
+  password: dburl.password,
+  database: dburl.pathname.substr(1),
+  ssl: JSON.parse(dburl.searchParams.get('ssl')),
+};
+const connection = mysql.createConnection(dbConfig)
 const PORT = 3000;
 
+connection.connect((err) => {
+  if(err){
+    console.error('Erro ao conectar ao banco de dados', err.message);
+
+  }else{
+    console.log('Conexão bem-sucedida!');
+  }
+})
 // Middleware para analisar dados JSON recebidos
 app.use(express.json());
 
@@ -43,6 +37,22 @@ app.post('/teste', (req, res) => {
   }
   return res.json(body);
 });
+
+app.post('/usuarios', (req, res) => {
+  const novoUsuario = req.body;
+  if (!novoUsuario || !novoUsuario.nome || !novoUsuario.email || !novoUsuario.senha) {
+    return res.status(400).json({ message: 'Dados do usuário incompletos' });
+  }
+  const query = 'INSERT INTO users (nome, email, senha, favoritos, historico) VALUES (?, ?, ?, ?,?)'
+  const values = [novoUsuario.nome, novoUsuario.email, novoUsuario.senha, novoUsuario.favoritos, novoUsuario.historico];
+
+  connection.query(query, values, (err, results) => {
+    if(err){
+      console.error('Erro ao criar usuário:', err.message);
+    }
+    return res.status(201).json({message:'Usuario criado com sucesso'});
+  })
+})
 
 app.listen(PORT, () => {
   console.log(`Servidor rodando em http://localhost:${PORT}/`);
