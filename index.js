@@ -1,6 +1,6 @@
 const dbp = 'pscale_pw_qPEbqcsiOet2jNx'
 const dbw = 'kUjLjN5D8agtddD66zR2VeA7NwEA'
-const dburl= new URL(`mysql://k1wxu9ixz5z1aiamm54x:${dbp}${dbw}@aws.connect.psdb.cloud/primeiro_banco?ssl={"rejectUnauthorized":true}`)
+const dburl= new URL(`mysql://5rcqhc25mjeyasrovykd:${dbp}${dbw}@aws.connect.psdb.cloud/primeiro_banco?ssl={"rejectUnauthorized":true}`)
 const mysql = require('mysql2');
 const express = require('express');
 const app = express(); // Cria uma aplicação Express
