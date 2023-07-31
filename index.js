@@ -27,7 +27,7 @@ connection.connect((err) => {
 app.use(express.json());
 
 // Rota para o endpoint raiz
-app.get('/welcome', (req, res) => {
+app.get('/', (req, res) => {
   res.status(200).send('Se você está lendo isso, significa que estou melhorando no backend');
 });
 
