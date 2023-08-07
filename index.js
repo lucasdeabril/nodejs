@@ -26,6 +26,13 @@ connection.connect((err) => {
 // Middleware para analisar dados JSON recebidos
 app.use(express.json());
 
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  next();
+});
+
 // Rota para o endpoint raiz
 app.get('/', (req, res) => {
   res.status(200).send('Se você está lendo isso, significa que estou melhorando no backend');
