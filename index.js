@@ -49,11 +49,15 @@ app.post('/teste', (req, res) => {
 
 app.post('/usuarios', (req, res) => {
   const novoUsuario = req.body;
+  console.log('Novo usuário:', novoUsuario);
   if (!novoUsuario || !novoUsuario.nome || !novoUsuario.email || !novoUsuario.senha) {
+    console.log('Dados do usuário incompletos')
     return res.status(400).json({ message: 'Dados do usuário incompletos' });
   }
   const query = 'INSERT INTO users (nome, email, senha, favoritos, historico) VALUES (?, ?, ?, ?,?)'
   const values = [novoUsuario.nome, novoUsuario.email, novoUsuario.senha, novoUsuario.favoritos, novoUsuario.historico];
+  console.log('Query:', query);
+  console.log('Values:', values);
 
   connection.query(query, values, (err, results) => {
     if(err){
