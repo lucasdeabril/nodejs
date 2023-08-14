@@ -1,6 +1,6 @@
-const dbp = 'pscale_pw_qPEbqcsiOet2jNx'
-const dbw = 'kUjLjN5D8agtddD66zR2VeA7NwEA'
-const dburl= new URL(`mysql://5rcqhc25mjeyasrovykd:${dbp}${dbw}@aws.connect.psdb.cloud/primeiro_banco?ssl={"rejectUnauthorized":true}`)
+const dbp = 'pscale_pw_9BtrW09XkAaqrsmXz'
+const dbw = '9DgYGUW2nE4XbiPF9Gwwrrkit5'
+const dburl= new URL(`mysql://i0p00j77sn8sl5a6cv94:${dbp}${dbw}@aws.connect.psdb.cloud/primeiro_banco?ssl={"rejectUnauthorized":true}`)
 const mysql = require('mysql2');
 const express = require('express');
 const app = express(); // Cria uma aplicação Express
