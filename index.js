@@ -67,6 +67,26 @@ app.post('/usuarios', (req, res) => {
   })
 })
 
+app.get('/usuarios/:nome', (req, res) => {
+  const userId = req.params.nome;
+
+  const query = 'SELECT * FROM users WHERE nome = ?';
+
+  connection.query(query, [userId], (err, results) => {
+    if (err) {
+      console.error('Erro ao buscar usuário:', err.message);
+      return res.status(500).json({ message: 'Erro ao buscar usuário' });
+    }
+
+    if (results.length === 0) {
+      return res.status(404).json({ message: 'Usuário não encontrado' });
+    }
+
+    const usuario = results[0];
+    return res.status(200).json(usuario);
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`Servidor rodando em http://localhost:${PORT}/`);
 });
