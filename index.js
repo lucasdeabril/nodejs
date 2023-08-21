@@ -14,6 +14,7 @@ const dbConfig = {
 };
 const connection = mysql.createConnection(dbConfig)
 const PORT = 3000;
+const cors = require('cors')
 
 connection.connect((err) => {
   if(err){
@@ -25,6 +26,11 @@ connection.connect((err) => {
 })
 // Middleware para analisar dados JSON recebidos
 app.use(express.json());
+app.use(cors());
+
+app.options('*', (req, res) => {
+  res.status(200).end();
+});
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
