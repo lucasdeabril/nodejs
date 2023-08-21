@@ -74,10 +74,10 @@ app.post('/usuarios', (req, res) => {
   })
 })
 
-app.get('/usuarios/:nome', (req, res) => {
-  const userId = req.params.nome;
+app.get('/usuarios/:email', (req, res) => {
+  const userId = req.params.email;
 
-  const query = 'SELECT * FROM users WHERE nome = ?';
+  const query = 'SELECT * FROM users WHERE email = ?';
 
   connection.query(query, [userId], (err, results) => {
     if (err) {
