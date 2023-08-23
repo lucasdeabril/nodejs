@@ -94,6 +94,22 @@ app.get('/usuarios/:email', (req, res) => {
   });
 });
 
+app.put('/usuarios/:id/favoritos', (req, res) => {
+  const userid = req.params.id;
+  const newfavorit = req.body.favoritos;
+
+  const query = 'UPDATE users SET favoritos =? WHERE id = ?'
+  const values = [newfavorit , userid];
+
+  connection.query(query, values, (err , results) =>{
+    if(err){
+      console.log('Erro ao atualizar favoritos:', err.message);
+      return res.status(500).json({message:'Erro ao atualizar favoritos'});
+    }
+    return res.status(200).json({message: 'Favoritos atualizado com sucesso'});
+  })
+})
+
 app.listen(PORT, () => {
   console.log(`Servidor rodando em http://localhost:${PORT}/`);
 });
