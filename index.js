@@ -110,6 +110,22 @@ app.put('/usuarios/:id/favoritos', (req, res) => {
   })
 })
 
+app.put('/usuarios/:id/historico', (req, res) => {
+  const userid = req.params.id;
+  const newhist = req.body.historico;
+
+  const query = 'UPDATE users SET historico =? WHERE id = ?'
+  const values = [newhist , userid];
+
+  connection.query(query, values, (err , results) =>{
+    if(err){
+      console.log('Erro ao atualizar historico:', err.message);
+      return res.status(500).json({message:'Erro ao atualizar historico'});
+    }
+    return res.status(200).json({message: 'historico atualizado com sucesso'});
+  })
+})
+
 app.listen(PORT, () => {
   console.log(`Servidor rodando em http://localhost:${PORT}/`);
 });
